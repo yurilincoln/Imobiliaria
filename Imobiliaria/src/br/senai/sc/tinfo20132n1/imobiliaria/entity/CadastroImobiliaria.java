@@ -1,8 +1,10 @@
 package br.senai.sc.tinfo20132n1.imobiliaria.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class CadastroImobiliaria {
@@ -14,6 +16,9 @@ public class CadastroImobiliaria {
 	private Integer numero;
 	private String tipo;
 	private Double valor;
+	
+	@ManyToOne(cascade=CascadeType.PERSIST)
+	private TipoDeImovel tipoDeImovel;
 	
 	public Long getId() {
 		return id;
@@ -44,6 +49,12 @@ public class CadastroImobiliaria {
 	}
 	public void setValor(Double valor) {
 		this.valor = valor;
+	}
+	public TipoDeImovel getTipoDeImovel() {
+		return tipoDeImovel;
+	}
+	public void setTipoDeImovel(TipoDeImovel tipoDeImovel) {
+		this.tipoDeImovel = tipoDeImovel;
 	}
 
 }

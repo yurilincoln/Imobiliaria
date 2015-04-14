@@ -6,6 +6,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import br.senai.sc.tinfo20132n1.imobiliaria.entity.CadastroImobiliaria;
+import br.senai.sc.tinfo20132n1.imobiliaria.entity.TipoDeImovel;
 public class Main {
 
 	public static EntityManagerFactory entityManagerFactory;
@@ -16,11 +17,12 @@ public class Main {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 		
-		inserirImovel(entityManager);
+//		inserirImovel(entityManager);
+//		inserir(entityManager);
 //		buscarPorId(entityManager);
 //		listar(entityManager);
 //		atualizar(entityManager);
-//		excluir(entityManager);
+		excluir(entityManager);
 
 		
 		entityManager.getTransaction().commit();
@@ -31,12 +33,29 @@ public class Main {
 	}
 
 	private static void inserirImovel(EntityManager entityManager) {
+		TipoDeImovel tipoDeImovel = entityManager.getReference(TipoDeImovel.class, 1L);
 		CadastroImobiliaria cadastroimobiliaria;
 		cadastroimobiliaria = new CadastroImobiliaria();
-		cadastroimobiliaria.setEndereco("Rod. SC-401");
-		cadastroimobiliaria.setNumero(194);
-		cadastroimobiliaria.setTipo("Prédio Comercial");
-		cadastroimobiliaria.setValor(350.000);
+		cadastroimobiliaria.setEndereco("Rod. SC-403");
+		cadastroimobiliaria.setNumero(5605);
+		cadastroimobiliaria.setTipo("Área Industrial");
+		cadastroimobiliaria.setValor(1200.000);
+		entityManager.persist(cadastroimobiliaria);
+		
+	}
+	
+	private static void inserir(EntityManager entityManager) {
+		
+		TipoDeImovel tipoDeImovel = new TipoDeImovel();
+		tipoDeImovel.setTipo("Área Industrial");
+		
+		CadastroImobiliaria cadastroimobiliaria;
+		cadastroimobiliaria = new CadastroImobiliaria();
+		cadastroimobiliaria.setEndereco("Rod. SC-403");
+		cadastroimobiliaria.setNumero(5605);
+		cadastroimobiliaria.setTipo("Área Industrial");
+		cadastroimobiliaria.setValor(1200.000);
+		cadastroimobiliaria.setTipoDeImovel(tipoDeImovel);
 		entityManager.persist(cadastroimobiliaria);
 	}
 	
@@ -71,7 +90,7 @@ public class Main {
 	}
 
 	private static void excluir(EntityManager entityManager) {
-		CadastroImobiliaria cadastroimobiliaria = entityManager.getReference(CadastroImobiliaria.class, 1L);
+		CadastroImobiliaria cadastroimobiliaria = entityManager.getReference(CadastroImobiliaria.class, 2L);
 		entityManager.remove(cadastroimobiliaria);
 	}
 
